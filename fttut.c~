@@ -1,0 +1,27 @@
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
+FT_Library library;
+
+int main(int argc, char* argv[])
+{
+  int error;
+  FT_Face face;
+
+  error = FT_Init_FreeType( &library );
+  if( error ) {
+    printf( "FT_Init_FreeType error occurred!\n" );
+  }
+
+  /* Load a font face */
+  error = FT_New_Face( library, 
+		       "/Library/Fonts/arial.ttf",
+		       0,
+		       &face );
+  if( error == FT_Err_Unknown_File_Format ) {
+    printf( "font format is not supported!! \n" );
+  } else if( error ) {
+    printf( "Font file load failure!!! \n");
+  }
+
+}

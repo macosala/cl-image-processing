@@ -1,14 +1,14 @@
 (require :cffi)
 
 ;; parameters for test
-(defparameter *in-fn* "/Users/younwook/freetype/tutorial/in3.png")
-(defparameter *out-fn* "/Users/younwook/freetype/tutorial/tt1.png")
-(defparameter *hist-r-fn* "/Users/younwook/freetype/tutorial/hist-r.png")
-(defparameter *hist-g-fn* "/Users/younwook/freetype/tutorial/hist-g.png")
-(defparameter *hist-b-fn* "/Users/younwook/freetype/tutorial/hist-b.png")
+(defparameter *in-fn* "/Users/younwook/cl-image-processing/in3.png")
+(defparameter *out-fn* "/Users/younwook/cl-image-processing/tt1.png")
+(defparameter *hist-r-fn* "/Users/younwook/cl-image-processing/hist-r.png")
+(defparameter *hist-g-fn* "/Users/younwook/cl-image-processing/hist-g.png")
+(defparameter *hist-b-fn* "/Users/younwook/cl-image-processing/hist-b.png")
 
 (cffi:define-foreign-library fttutlib
-  (t (:default "/Users/younwook/freetype/tutorial/libfttut")))
+  (t (:default "/Users/younwook/cl-image-processing/libfttut")))
 
 (cffi:use-foreign-library fttutlib)
 
@@ -418,7 +418,8 @@
 
 ;; (run-time (tt))
 
-;; 영역에 ㄸㅏ른 영상 향상 수행을 위한 함수들
+;; 영역에 따른 영상 향상 수행을 위한 함수들
+;; 
 (defun make-image-sum-recursive (n db x y w h proc)
   (if (>= y h)
       n
@@ -443,7 +444,7 @@
 (defun make-image-sum-loop (db w h proc)
   (loop for y from 0 to (- h 1) sum
        (loop for x from 0 to (- w 1) sum
-	    (funcall proc (get-pixel db x y 3))))))
+	    (funcall proc (get-pixel db x y 3)))))
 
 (defun image-average (db proc)
   (let ((db-width (cffi:foreign-slot-value db 'draw-buffer 'width))
